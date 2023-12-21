@@ -44,7 +44,7 @@ void Draw(bool is_game_starting) {
     // This for loop is for drawing the top wall
     for (int i =0; i < width +2; i++){
         cout << "#";
-    }
+
     cout << endl;
 
     // This for loop is for drawing the left and right walls
@@ -56,12 +56,26 @@ void Draw(bool is_game_starting) {
                 cout << "#";
             }
             cout << " ";
+
             if (j == width-1){
                 cout << "#";
+            }
+            if (i == y && j == x){
+                cout << "O";
+            
+            }else if(i == y_fruit && j == x_fruit){
+                cout << "F";
+            }else{
+                cout << " ";
+            }
+            if (j == width -1){
+                cout << "#";
+            
             }
         }
         cout << endl;
     }
+}
     // This for loop is for drawing the bottom wall
     for (int i =0; i < width +2; i++){
         cout << "#";
