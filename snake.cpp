@@ -40,9 +40,17 @@ void Setup() {
     score = 0;
 }
 
+/* 
+This function draws the game's frame. It consists of 3 for loops.
+The first for loop draws the top wall.
+The second for loop draws the left and right walls, and draws the snake head and fruit in between.
+The third for loop draws the bottom wall.
+*/
 void Draw() {
+
     // The first step before drawing is to clear the console (in case of a new game)
     system("cls");
+
     // This for loop is for drawing the top wall
     for (int i =0; i < width + 2; i++){
         cout << "#";
@@ -83,6 +91,10 @@ void Draw() {
         cout << "#";
     }
     cout << endl;
+}
+
+void Input(){
+    
 }
 int main() {
     while(1){
