@@ -12,7 +12,7 @@ bool new_game;
 const int width = 20;
 const int height = 20;
 
-// These are for the x and y cooridnates of the snake's head, and fruit resepctively
+// These are for the x and y cooridnates of the snake's head, and fruit, resepctively
 int x, y, x_fruit, y_fruit = 0;
 
 // Score
@@ -115,21 +115,21 @@ void Input(){
             case 'd': // d key
                 dir = RIGHT;
                 break;
-            case 72:  // Up arrow key
-                dir = UP;
-                break;
-            case 80:  // Down arrow key
-                dir = DOWN;
-                break;
-            case 75:  // Left arrow key
-                dir = LEFT;
-                break;
-            case 77:  // Right arrow key
-                dir = RIGHT;
-                break;
-            case 'x': // x key
-                game_over = true;
-                break;
+            // case 72:  // Up arrow key
+            //     dir = UP;
+            //     break;
+            // case 80:  // Down arrow key
+            //     dir = DOWN;
+            //     break;
+            // case 75:  // Left arrow key
+            //     dir = LEFT;
+            //     break;
+            // case 77:  // Right arrow key
+            //     dir = RIGHT;
+            //     break;
+            // case 'x': // x key
+            //     game_over = true;
+            //     break;
             default:
                 // Handle other keys if needed
                 break;
@@ -139,10 +139,34 @@ void Input(){
 
     
 }
+
+void Logic(){
+    switch(dir){
+        case UP:
+            y++;
+            break;
+        case DOWN:
+            y--;
+            break;
+        case LEFT:
+            x--;
+            break;
+        case RIGHT:
+            x++;
+            break;
+        default:
+            break;
+    }
+}
 int main() {
-    while(1){
     Setup();
-    Draw();
+
+    while (!game_over) {
+        Draw();
+        Input();
+        Logic();
+        // Add a delay to control the speed of the game (up to your preference)
+        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     return 0;
 }
