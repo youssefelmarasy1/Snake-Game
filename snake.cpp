@@ -12,7 +12,7 @@ const int width = 20;
 const int height = 20;
 
 // These are for the x and y cooridnates of the snake's head, and fruit resepctively
-int x, y, x_fruit, y_fruit;
+int x, y, x_fruit, y_fruit = 0;
 
 // Score
 int score;
@@ -36,7 +36,7 @@ void Setup() {
 
 void Draw() {
     // The first step before drawing is to clear the console (in case of a new game)
-    //system("cls");
+    system("cls");
     // This for loop is for drawing the top wall
     for (int i =0; i < width + 1; i++){
         cout << "#";
@@ -50,6 +50,13 @@ void Draw() {
 
             if (j == 0){
                 cout << "#";
+            }
+
+            if (i == y && j == x){
+                cout << "O";
+            }
+            else if (i == y_fruit && j == x_fruit){
+                cout << "F";
             }
             else{
                 cout << " ";
@@ -70,9 +77,9 @@ void Draw() {
     cout << endl;
 }
 int main() {
-
+    while(1){
     Setup();
     Draw();
-
+    }
     return 0;
 }
