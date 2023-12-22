@@ -27,6 +27,9 @@ Direction dir;
 
 // Holds the ASCII value of the pressed key on the keyboard
 char key;
+// arrays with up to 100 elements for the x and y coordinates of the tail
+int tail_x[100], tail_y[100];
+int n_tail;
 
 // 1st method
 void Setup() {
@@ -80,7 +83,20 @@ void Draw() {
             }
             // Print the spaces in between the left and right wall boundaries
             else{
+                // Prints the tail segements
+                for (int k = 0; k < n_tail; k++){
+                    bool print_tail = false;
+                    if (tail_x[k] == j && tail_y[k] == i){
+                        cout << "o";
+                        print_tail = true;
+                    }
+                    if(!print_tail) {
+                        cout << " ";
+                    
+                }
+                }
                 cout << " ";
+                
             }
             // Drawing the right wall boundary
             if (j == width-1){
@@ -143,6 +159,17 @@ void Input(){
 }
 
 void Logic(){
+    int prev_x = tail_x[0];
+    int prev_y = tail_y[0];
+    int prev2_x, prev2_y;
+    for (int i =1; i < n_tail; i++){
+        prev2_x = tail_x[i];
+        prev2_y = tail_y[i];
+        tail_x[i] = prev_x;
+        tail_y[i] = prev_y;
+        prev_x = prev2_x;
+        prev_y = prev2_y;
+    }
     switch(dir){
         case UP:
             y--;
@@ -162,6 +189,7 @@ void Logic(){
     // Terminates the game if the snake head hits the wall
     if (x > width || x < 0 || y > height || y < 0){
         game_over = true;
+        n_tail++;
     }
     if (x == x_fruit && y== y_fruit){
         score += 10;
@@ -177,10 +205,9 @@ int main() {
         Draw();
         Input();
         Logic();
-        // Add a delay to control the speed of the game (up to your preference)
+        // Adding a delay to control the speed of the game (up to your preference)
         Sleep(100);
-        //sleep(10);
-        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        
     }
     return 0;
 }
