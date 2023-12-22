@@ -29,6 +29,7 @@ void Setup() {
     dir = STOP;
     x = width/2;
     y = height/2;
+
     // Uncomment these lines if you want the fruit spawning location to be random in  every game
     // x_fruit = rand() % width;
     // y_fruit = rand() % height;
@@ -52,21 +53,23 @@ void Draw() {
     for (int i =0; i < height; i++){
 
         for (int j = 0; j < width; j++){
-
+            // Drawing the left wall boundary
             if (j == 0){
                 cout << "#";
             }
-
+            // Drawing the snake head when the for loop iterates to x and y positions
             if (i == y && j == x){
                 cout << "O";
             }
+            // Drawing the fruit when the for loop iterates to the fruit's x and y positions
             else if (i == y_fruit && j == x_fruit){
                 cout << "F";
             }
+            // Print the spaces in between the left and right wall boundaries
             else{
                 cout << " ";
             }
-
+            // Drawing the right wall boundary
             if (j == width-1){
                 cout << "#";
             }
