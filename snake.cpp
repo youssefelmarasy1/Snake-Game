@@ -24,7 +24,7 @@ enum Direction {STOP = 0, UP, DOWN, LEFT, RIGHT};
 Direction dir;
 
 // 1st method
-bool Setup() {
+void Setup() {
     game_over = false;
     dir = STOP;
     x = width/2;
@@ -32,19 +32,15 @@ bool Setup() {
     x_fruit = rand() % width;
     y_fruit = rand() % height;
     score = 0;
-    new_game = false;
-    return new_game;
 }
 
-void Draw(bool is_game_starting) {
+void Draw() {
     // The first step before drawing is to clear the console (in case of a new game)
-    if (is_game_starting == true) {
-        system("cls");
-    }
+    //system("cls");
     // This for loop is for drawing the top wall
-    for (int i =0; i < width +2; i++){
+    for (int i =0; i < width + 1; i++){
         cout << "#";
-
+    }
     cout << endl;
 
     // This for loop is for drawing the left and right walls
@@ -55,35 +51,28 @@ void Draw(bool is_game_starting) {
             if (j == 0){
                 cout << "#";
             }
-            if (i == y && j == x){
-                cout << "O";
-            }else if(i == y_fruit && j == x_fruit){
-                cout << "F";
-            }else{
+            else{
                 cout << " ";
             }
-            cout << " ";
 
             if (j == width-1){
                 cout << "#";
             }
             
-            if (j == width -1){
-                cout << "#";
-            
-            }
         }
         cout << endl;
     }
-}
+
     // This for loop is for drawing the bottom wall
-    for (int i =0; i < width +2; i++){
+    for (int i =0; i < width +1; i++){
         cout << "#";
     }
+    cout << endl;
 }
 int main() {
-    new_game = Setup();
-    Draw(new_game);
+
+    Setup();
+    Draw();
 
     return 0;
 }
