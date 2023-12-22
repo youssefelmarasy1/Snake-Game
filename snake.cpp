@@ -1,5 +1,6 @@
 #include <iostream>
 #include <conio.h>
+#include <windows.h>
 using namespace std;
 
 // Boolean variable to indicate whether or not the game is over
@@ -75,7 +76,7 @@ void Draw() {
             }
             // Drawing the fruit when the for loop iterates to the fruit's x and y positions
             else if (i == y_fruit && j == x_fruit){
-                cout << "F";
+                cout << "F"; //This is the unicode representation of the apple emoji
             }
             // Print the spaces in between the left and right wall boundaries
             else{
@@ -115,21 +116,21 @@ void Input(){
             case 'd': // d key
                 dir = RIGHT;
                 break;
-            // case 72:  // Up arrow key
-            //     dir = UP;
-            //     break;
-            // case 80:  // Down arrow key
-            //     dir = DOWN;
-            //     break;
-            // case 75:  // Left arrow key
-            //     dir = LEFT;
-            //     break;
-            // case 77:  // Right arrow key
-            //     dir = RIGHT;
-            //     break;
-            // case 'x': // x key
-            //     game_over = true;
-            //     break;
+            case 72:  // Up arrow key
+                dir = UP;
+                break;
+            case 80:  // Down arrow key
+                dir = DOWN;
+                break;
+            case 75:  // Left arrow key
+                dir = LEFT;
+                break;
+            case 77:  // Right arrow key
+                dir = RIGHT;
+                break;
+            case 'x': // x key
+                game_over = true;
+                break;
             default:
                 // Handle other keys if needed
                 break;
@@ -143,10 +144,10 @@ void Input(){
 void Logic(){
     switch(dir){
         case UP:
-            y++;
+            y--;
             break;
         case DOWN:
-            y--;
+            y++;
             break;
         case LEFT:
             x--;
@@ -157,6 +158,10 @@ void Logic(){
         default:
             break;
     }
+    // Terminates the game if the snake head hits the wall
+    if (x > width || x < 0 || y > height || y < 0){
+        game_over = true;
+    }
 }
 int main() {
     Setup();
@@ -166,6 +171,8 @@ int main() {
         Input();
         Logic();
         // Add a delay to control the speed of the game (up to your preference)
+        Sleep(150);
+        //sleep(10);
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     return 0;
