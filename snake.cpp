@@ -45,7 +45,9 @@ void Setup() {
     // Uncomment these lines if you want the fruit spawning location to be the same every game
     x_fruit = width/4;
     y_fruit = width/4;
-    score = 0;
+
+    score = 0; // Initializing the score
+    n_tail = 0;  // Initialize the tail
 }
 
 /* 
@@ -55,65 +57,70 @@ The second for loop draws the left and right walls, and draws the snake head and
 The third for loop draws the bottom wall.
 */
 void Draw() {
-
-    // The first step before drawing is to clear the console (in case of a new game)
-    system("cls");
+    // Setting the cursor position to the top-left corner of the console window
+    COORD position;
+    position.X = 0;
+    position.Y = 0;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
 
     // This for loop is for drawing the top wall
-    for (int i =0; i < width + 2; i++){
+    for (int i = 0; i < width + 2; i++) {
         cout << "#";
     }
     cout << endl;
 
     // This for loop is for drawing the left and right walls
-    for (int i =0; i < height; i++){
+    for (int i = 0; i < height; i++) {
 
-        for (int j = 0; j < width; j++){
+        for (int j = 0; j < width; j++) {
             // Drawing the left wall boundary
-            if (j == 0){
+            if (j == 0) {
                 cout << "#";
             }
+
             // Drawing the snake head when the for loop iterates to x and y positions
-            if (i == y && j == x){
+            if (i == y && j == x) {
                 cout << "O";
             }
+
             // Drawing the fruit when the for loop iterates to the fruit's x and y positions
-            else if (i == y_fruit && j == x_fruit){
-                cout << "F"; //This is the unicode representation of the apple emoji
+            else if (i == y_fruit && j == x_fruit) {
+                cout << "F"; // This is the unicode representation of the apple emoji
             }
+
             // Print the spaces in between the left and right wall boundaries
-            else{
-                // Prints the tail segements
-                for (int k = 0; k < n_tail; k++){
-                    bool print_tail = false;
-                    if (tail_x[k] == j && tail_y[k] == i){
+            else {
+                bool print_tail = false;
+                // Prints the tail segments
+                for (int k = 0; k < n_tail; k++) {
+                    
+                    if (tail_x[k] == j && tail_y[k] == i) {
                         cout << "o";
                         print_tail = true;
                     }
-                    if(!print_tail) {
-                        cout << " ";
                     
                 }
-                }
-                cout << " ";
-                
+                if (!print_tail) {
+                        cout << " ";
+                    }
             }
+
             // Drawing the right wall boundary
-            if (j == width-1){
+            if (j == width - 1) {
                 cout << "#";
             }
-            
         }
         cout << endl;
     }
 
     // This for loop is for drawing the bottom wall
-    for (int i =0; i < width +2; i++){
+    for (int i = 0; i < width + 2; i++) {
         cout << "#";
     }
     cout << endl;
     cout << "Score: " << score << endl;
 }
+
 
 void Input(){
     // _kbhit() detects whether or not any key is pressed on the keyboard
@@ -159,9 +166,15 @@ void Input(){
 }
 
 void Logic(){
+    // Storing the current coordinates of the first tail segment
     int prev_x = tail_x[0];
     int prev_y = tail_y[0];
     int prev2_x, prev2_y;
+    // These two lines are for making the tail segemnts follow the snake's head
+    tail_x[0] = x;
+    tail_y[0] = y;
+
+    // Moving the rest of the tail segments to follow each other in sequence
     for (int i =1; i < n_tail; i++){
         prev2_x = tail_x[i];
         prev2_y = tail_y[i];
@@ -170,6 +183,7 @@ void Logic(){
         prev_x = prev2_x;
         prev_y = prev2_y;
     }
+    // Moving the snake's head based on the current direction
     switch(dir){
         case UP:
             y--;
@@ -188,26 +202,40 @@ void Logic(){
     }
     // Terminates the game if the snake head hits the wall
     if (x > width || x < 0 || y > height || y < 0){
+        cout << "Game over: snake head hit the wall!" << endl;
         game_over = true;
-        n_tail++;
     }
+
+    for (int i = 0; i< n_tail; i++){
+        // Checking if the snake's head hits any of the tail segements
+        if(tail_x[i] == x && tail_y[i] == y){
+            // If the condition is true, then the game is over
+            cout << "Game over: snake head hit its tail!" << endl;
+            game_over = true;
+        }
+    }
+    // Check if the snake's head reaches the fruit, update the score, and spawn a new fruit
     if (x == x_fruit && y== y_fruit){
         score += 10;
         x_fruit = rand() % width;
         y_fruit = rand() % height;
+        n_tail++;
 
     }
 }
-int main() {
-    Setup();
 
+
+int main() {
+    // Clearing the console
+    system("cls");
+    Setup();
     while (!game_over) {
         Draw();
         Input();
         Logic();
         // Adding a delay to control the speed of the game (up to your preference)
-        Sleep(100);
-        
+        Sleep(100);   
     }
+
     return 0;
 }
