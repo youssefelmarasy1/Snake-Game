@@ -29,8 +29,13 @@ void Setup() {
     dir = STOP;
     x = width/2;
     y = height/2;
-    x_fruit = rand() % width;
-    y_fruit = rand() % height;
+    // Uncomment these lines if you want the fruit spawning location to be random in  every game
+    // x_fruit = rand() % width;
+    // y_fruit = rand() % height;
+
+    // Uncomment these lines if you want the fruit spawning location to be the same every game
+    x_fruit = width/4;
+    y_fruit = width/4;
     score = 0;
 }
 
@@ -38,7 +43,7 @@ void Draw() {
     // The first step before drawing is to clear the console (in case of a new game)
     system("cls");
     // This for loop is for drawing the top wall
-    for (int i =0; i < width + 1; i++){
+    for (int i =0; i < width + 2; i++){
         cout << "#";
     }
     cout << endl;
@@ -71,7 +76,7 @@ void Draw() {
     }
 
     // This for loop is for drawing the bottom wall
-    for (int i =0; i < width +1; i++){
+    for (int i =0; i < width +2; i++){
         cout << "#";
     }
     cout << endl;
