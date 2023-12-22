@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 using namespace std;
 
 // Boolean variable to indicate whether or not the game is over
@@ -22,6 +23,9 @@ enum Direction {STOP = 0, UP, DOWN, LEFT, RIGHT};
 
 // Declaration of a variable dir, which holds the snake's direction
 Direction dir;
+
+// Holds the ASCII value of the pressed key on the keyboard
+char key;
 
 // 1st method
 void Setup() {
@@ -94,6 +98,45 @@ void Draw() {
 }
 
 void Input(){
+    // _kbhit() detects whether or not any key is pressed on the keyboard
+    if (_kbhit()){
+
+        // _getch detects which key is pressed and returns its ASCII value
+        switch(_getch()){
+            case 'a': // a key
+                dir = LEFT;
+                break;
+            case 's': // s key
+                dir = DOWN;
+                break;
+            case 'w': // w key
+                dir = UP;
+                break;
+            case 'd': // d key
+                dir = RIGHT;
+                break;
+            case 72:  // Up arrow key
+                dir = UP;
+                break;
+            case 80:  // Down arrow key
+                dir = DOWN;
+                break;
+            case 75:  // Left arrow key
+                dir = LEFT;
+                break;
+            case 77:  // Right arrow key
+                dir = RIGHT;
+                break;
+            case 'x': // x key
+                game_over = true;
+                break;
+            default:
+                // Handle other keys if needed
+                break;
+
+        }
+    }
+
     
 }
 int main() {
