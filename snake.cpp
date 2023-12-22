@@ -96,6 +96,7 @@ void Draw() {
         cout << "#";
     }
     cout << endl;
+    cout << "Score: " << score << endl;
 }
 
 void Input(){
@@ -162,6 +163,12 @@ void Logic(){
     if (x > width || x < 0 || y > height || y < 0){
         game_over = true;
     }
+    if (x == x_fruit && y== y_fruit){
+        score += 10;
+        x_fruit = rand() % width;
+        y_fruit = rand() % height;
+
+    }
 }
 int main() {
     Setup();
@@ -171,7 +178,7 @@ int main() {
         Input();
         Logic();
         // Add a delay to control the speed of the game (up to your preference)
-        Sleep(150);
+        Sleep(100);
         //sleep(10);
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
