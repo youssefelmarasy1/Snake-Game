@@ -55,19 +55,19 @@ void Draw(bool is_game_starting) {
             if (j == 0){
                 cout << "#";
             }
-            cout << " ";
-
-            if (j == width-1){
-                cout << "#";
-            }
             if (i == y && j == x){
                 cout << "O";
-            
             }else if(i == y_fruit && j == x_fruit){
                 cout << "F";
             }else{
                 cout << " ";
             }
+            cout << " ";
+
+            if (j == width-1){
+                cout << "#";
+            }
+            
             if (j == width -1){
                 cout << "#";
             
