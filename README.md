@@ -22,8 +22,8 @@ This console-based Snake Game provides a nostalgic gaming experience. Navigate t
    cd Snake-Game
 3. Compile the game:
    ```sh
-   g++ snake_game.cpp -o SnakeGame
+   g++ -o snake snake.cpp
 4. Run the game:
    ```sh
-   ./SnakeGame
-Enjoy the game! 🐍
+   ./snake
+Enjoy the game! 🐍🕹️
