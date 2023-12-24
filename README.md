@@ -17,3 +17,13 @@ This console-based Snake Game provides a nostalgic gaming experience. Navigate t
 1. Clone the repository to your local machine:
    ```sh
    git clone https://github.com/your-username/Snake-Game.git
+2. Navigate to the project directory:
+   ```sh
+   cd Snake-Game
+3. Compile the game:
+   ```sh
+   g++ snake_game.cpp -o SnakeGame
+4. Run the game:
+   ```sh
+   ./SnakeGame
+Enjoy the game! 🐍
